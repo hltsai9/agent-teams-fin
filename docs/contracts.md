@@ -42,7 +42,7 @@ All teammates code against these contracts. Do not change a contract without tel
 - Max 15 items. On upstream failure: HTTP 502 with `{ "symbol": "...", "items": [], "error": "message" }`.
 - Upstream RSS: `https://feeds.finance.yahoo.com/rss/2.0/headline?s={SYMBOL}&region=US&lang=en-US`
 
-## lib/signals.js (pure, ESM — also copied verbatim to public/signals.js)
+## lib/signals.js (pure, ESM — mirrored to public/signals.js as a functionally equivalent, self-contained browser copy with the lexicon inlined; same exported signatures and behavior, formatting may differ)
 
 ```js
 sma(closes, n)                       // → number | null (insufficient data)

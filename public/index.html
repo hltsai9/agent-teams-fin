@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stock Trend Dashboard</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1 class="site-title">Stock Trend Dashboard</h1>
+      <div class="watchlist-editor" role="form" aria-label="Watchlist editor">
+        <input
+          id="symbol-input"
+          type="text"
+          placeholder="Add symbol (e.g. AMZN)"
+          aria-label="Stock symbol"
+          maxlength="10"
+          autocomplete="off"
+          autocapitalize="characters"
+        />
+        <button id="add-btn" type="button" aria-label="Add symbol">Add</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div id="cards-grid" class="cards-grid" aria-live="polite" aria-label="Stock cards">
+      <!-- cards rendered by app.js -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>資料僅供參考 &mdash; Not financial advice. Data may be delayed.</p>
+  </footer>
+
+  <script src="https://unpkg.com/lightweight-charts@4/dist/lightweight-charts.standalone.production.js"></script>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

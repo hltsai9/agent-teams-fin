@@ -1,0 +1,449 @@
+/* =========================================================
+   Global reset & design tokens
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:          #0d1117;
+  --bg-card:     #161b22;
+  --bg-card-alt: #1c2128;
+  --border:      #30363d;
+  --text:        #e6edf3;
+  --text-muted:  #8b949e;
+  --accent:      #58a6ff;
+  --green:       #3fb950;
+  --red:         #f85149;
+  --orange:      #d29922;
+  --gray:        #6e7681;
+  --radius:      8px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --tap: 44px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.site-header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.site-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.watchlist-editor {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.watchlist-editor input {
+  flex: 1;
+  min-width: 120px;
+  height: var(--tap);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  padding: 0 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.watchlist-editor input:focus {
+  border-color: var(--accent);
+}
+
+.watchlist-editor input::placeholder {
+  color: var(--text-muted);
+}
+
+.watchlist-editor button {
+  height: var(--tap);
+  padding: 0 18px;
+  background: var(--accent);
+  color: #0d1117;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+
+.watchlist-editor button:hover {
+  opacity: 0.85;
+}
+
+/* =========================================================
+   Main grid — mobile-first
+   1 col < 700px | 2 col < 1100px | 3 col >= 1100px
+   ========================================================= */
+#main-content {
+  flex: 1;
+  padding: 16px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 700px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* =========================================================
+   Stock card
+   ========================================================= */
+.stock-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 14px 10px;
+  gap: 8px;
+}
+
+.card-symbol-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.card-symbol {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.card-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.card-change {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.card-change.positive { color: var(--green); }
+.card-change.negative { color: var(--red); }
+.card-change.flat     { color: var(--text-muted); }
+
+.card-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  min-width: var(--tap);
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.card-remove-btn:hover {
+  color: var(--red);
+}
+
+/* chart container — fixed height so ResizeObserver works */
+.card-chart {
+  width: 100%;
+  height: 160px;
+  background: var(--bg);
+}
+
+.card-body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+/* =========================================================
+   Signal badge
+   ========================================================= */
+.signal-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.signal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: fit-content;
+  min-height: var(--tap);
+}
+
+.signal-badge[data-signal="BUY"] {
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+
+.signal-badge[data-signal="WAIT"] {
+  background: rgba(210, 153, 34, 0.15);
+  color: var(--orange);
+  border: 1px solid var(--orange);
+}
+
+.signal-badge[data-signal="HOLD"] {
+  background: rgba(110, 118, 129, 0.15);
+  color: var(--gray);
+  border: 1px solid var(--gray);
+}
+
+.signal-toggle-icon {
+  transition: transform 0.2s;
+  font-style: normal;
+  font-size: 0.75rem;
+}
+
+.signal-reasons {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 4px;
+}
+
+.signal-reasons.open {
+  display: flex;
+}
+
+.signal-reason {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding-left: 10px;
+  position: relative;
+}
+
+.signal-reason::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   News list
+   ========================================================= */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.news-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.news-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.news-item a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  transition: color 0.15s;
+}
+
+.news-item a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.news-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   Loading skeletons
+   ========================================================= */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card-alt) 25%, var(--border) 50%, var(--bg-card-alt) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 4px;
+}
+
+.skeleton-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-line {
+  height: 14px;
+}
+
+.skeleton-line.tall   { height: 22px; }
+.skeleton-line.short  { width: 50%; }
+.skeleton-line.medium { width: 70%; }
+
+.skeleton-chart {
+  height: 160px;
+  margin: 0 -14px;
+}
+
+/* =========================================================
+   Inline error state
+   ========================================================= */
+.card-error {
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.card-error-msg {
+  font-size: 0.85rem;
+  color: var(--red);
+}
+
+.retry-btn {
+  height: var(--tap);
+  padding: 0 16px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.retry-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   Responsive tweaks
+   ========================================================= */
+@media (max-width: 699px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .site-title {
+    text-align: center;
+  }
+
+  .card-price {
+    font-size: 1.2rem;
+  }
+}
