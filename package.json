@@ -1,0 +1,14 @@
+{
+  "name": "stock-trend-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Responsive stock trend dashboard with news-aware buy/hold/wait signals",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "vercel dev"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}
